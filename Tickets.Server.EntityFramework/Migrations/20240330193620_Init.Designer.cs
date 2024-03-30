@@ -12,7 +12,7 @@ using Tickets.Server.EntityFramework;
 namespace Tickets.Server.EntityFramework.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240330170807_Init")]
+    [Migration("20240330193620_Init")]
     partial class Init
     {
         /// <inheritdoc />

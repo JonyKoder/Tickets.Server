@@ -133,7 +133,8 @@ namespace Tickets.Server.Application.Controllers
         {
             // Логика для получения текущей не поданной заявки для указанного пользователя
             var currentTicket = (await _ticketService.GetAllTicketsAsync()).Where(x => x.UserId == userId && !x.IsUnderReview).FirstOrDefault();
-            return currentTicket;
+
+            return currentTicket ?? new TicketDto();
         }
 
         // GET api/ticket/{id}
