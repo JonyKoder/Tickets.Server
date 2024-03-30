@@ -8,8 +8,8 @@ namespace Tickets.Server.Domain.Models
 {
     public enum ActivityType
     {
-        Presentation,
-        Workshop,
-        Discussion
+        Presentation = 0,
+        Workshop = 1,
+        Discussion = 2
     }
 }

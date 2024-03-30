@@ -23,13 +23,18 @@ namespace Tickets.Server.BL.Services
 
         public async Task CreateTicketAsync(CreateUpdateTicketDto ticket)
         {
+
             var mappedTicket = _mapper.Map<CreateUpdateTicketDto, Ticket>(ticket);
+            mappedTicket.SetIsUnderReview(false);
+            mappedTicket.CreateDate = DateTime.Now.ToUniversalTime();
             var userExistsDraft = (await _ticketRepository.GetAllTickets()).Any(x => !x.IsUnderReview);
             if (userExistsDraft)
             {
                 throw new Exception("У пользователя может быть только одна не отправленная заявка");
             }
             await _ticketRepository.AddTicket(mappedTicket);
+
+
         }
 
         public async Task<List<TicketDto>> GetAllTicketsAsync()
@@ -67,7 +72,7 @@ namespace Tickets.Server.BL.Services
             var existingTicket = await _ticketRepository.GetTicketById(id);
             if (existingTicket.IsUnderReview)
             {
-                throw new ArgumentException("нельзя отменить / удалить заявки отправленные на рассмотрение");
+                throw new ArgumentException("Нельзя удалить заявки отправленные на рассмотрение");
             }
             if (existingTicket == null)
             {

@@ -16,8 +16,9 @@ namespace Tickets.Server.Application
                 .ForMember(dest => dest.ActivityType,
                            opt => opt.MapFrom(src => Enum.GetName(typeof(ActivityType), src.ActivityType)));
 
-            CreateMap<CreateUpdateTicketDto, Ticket>();
-
+            CreateMap<CreateUpdateTicketDto, Ticket>()
+      .ForMember(dest => dest.ActivityType, opt => opt.MapFrom(src => (int)src.ActivityType));
+            CreateMap<Ticket, CreateUpdateTicketDto>();
         }
     }
 }

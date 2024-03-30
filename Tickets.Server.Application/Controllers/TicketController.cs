@@ -148,14 +148,30 @@ namespace Tickets.Server.Application.Controllers
         [HttpGet("activityTypes")]
         public IEnumerable<ActivityTypeDto> GetActivityTypes()
         {
-            var activityTypes = new List<ActivityTypeDto>
-            {
-                new ActivityTypeDto { Activity = "Report", Description = "Доклад, 35-45 минут" },
-                new ActivityTypeDto { Activity = "Masterclass", Description = "Мастеркласс, 1-2 часа" },
-                new ActivityTypeDto { Activity = "Discussion", Description = "Дискуссия / круглый стол, 40-50 минут" }
-            };
-            
+            var activityTypes = Enum.GetValues(typeof(ActivityType))
+                                    .Cast<ActivityType>()
+                                    .Select(at => new ActivityTypeDto
+                                    {
+                                        Activity = at.ToString(),
+                                        Description = GetDescription(at)
+                                    });
+
             return activityTypes;
+        }
+
+        private string GetDescription(ActivityType activityType)
+        {
+            switch (activityType)
+            {
+                case ActivityType.Presentation:
+                    return "Доклад, 35-45 минут";
+                case ActivityType.Workshop:
+                    return "Мастеркласс, 1-2 часа";
+                case ActivityType.Discussion:
+                    return "Дискуссия / круглый стол, 40-50 минут";
+                default:
+                    return string.Empty;
+            }
         }
     }
 }

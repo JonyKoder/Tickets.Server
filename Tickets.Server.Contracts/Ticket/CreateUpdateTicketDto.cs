@@ -15,7 +15,7 @@ namespace Tickets.Server.Contracts.Ticket
         [Required(ErrorMessage = "Идентификатор пользователя обязателен")]
         public Guid UserId { get; set; }
 
-        public ActivityType ActivityType { get; set; }
+        public ActivityType ActivityType { get; set; } = 0;
 
         [Required(ErrorMessage = "Название обязательно")]
         [StringLength(100, ErrorMessage = "Название должно быть не более 100 символов")]
@@ -28,9 +28,5 @@ namespace Tickets.Server.Contracts.Ticket
         [Required(ErrorMessage = "План обязателен")]
         [StringLength(1000, ErrorMessage = "План должен быть не более 1000 символов")]
         public string Plan { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public bool IsUnderReview { get; set; }
     }
 }
