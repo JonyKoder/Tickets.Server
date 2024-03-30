@@ -1,0 +1,6 @@
+@Tickets.Server.Application_HostAddress = http://localhost:5123
+
+GET {{Tickets.Server.Application_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
