@@ -21,5 +21,9 @@ namespace Tickets.Server.EntityFramework
             modelBuilder.Entity<Ticket>()
                 .HasKey(t => t.Id);
         }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
     }
 }
